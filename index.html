@@ -31,5 +31,15 @@
 
   <body>
     <canvas class="canvas"></canvas>
+    <script>
+      const canvas = document.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Onload is called when the window loads
+      window.onload = () => {
+        // This line initializes mechamarkers library
+        Mechamarkers.init(canvas, ctx);
+      }
+    </script>
   </body>
 </html>
