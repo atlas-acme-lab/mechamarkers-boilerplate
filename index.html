@@ -35,6 +35,14 @@
       const canvas = document.querySelector('canvas');
       const ctx = canvas.getContext('2d');
       
+      // This function is called every animation frame (roughly 60 times a second)
+      function update() {
+        // Update the mechamarkers library
+        Mechamarkers.update(Date.now());
+        
+        
+      }
+      
       // Onload is called when the window loads
       window.onload = () => {
         // This line initializes mechamarkers library
