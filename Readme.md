@@ -40,31 +40,21 @@ Many objects in this library have 2D vector objects associated with them, they a
 | **name** | `string` | name given to the group in the config |
 | **angle** | `number` | rotation of the entire group in radians |
 | **pos** | `vector` | position of the center point of the group's anchor |
-
+| **anchor** | `Marker` | identifying marker of the group set in the config |
+| **inputs** | `input[]` | array of all of the inputs in this group |
 
 | Method Name | Parameters | Return Type | Description |
-| --- | --- | --- |
-| **getInput** | `string: inputName` | `input` | an input object, properties defined below |
+| --- | --- | --- | --- |
+| **getInput** | `string: inputName` | `input` | returns and an input object of the given name |
+| **getInputByID** | `number: inputID` | `input` | returns and input object with the given id in this group's inputs array |
 | **isPresent** | `N\A` | `boolean` | returns true when a group's anchor is detected |
-| **pos** | `vector` | position of the center point of the group's ancor |
-| --- | --- | --- |
-| --- | --- | --- |
 
 ### Inputs
-Inputs can only be accessed through a groups `getInput` function described above. Below are their properties and methods.
+Inputs can only be accessed through a groups `getInput` function described above. Below are their properties.
 
 | Property | Type | Description |
 | --- | --- | --- |
-| **name** | `string` | name given to the group in the config |
-| **angle** | `number` | rotation of the entire group in radians |
-| **pos** | `vector` | position of the center point of the group's anchor |
-
-
-| Method Name | Parameters | Return Type | Description |
-| --- | --- | --- |
-| **getInput** | `string: inputName` | `input` | an input object, properties defined below |
-| **isPresent** | `N\A` | `boolean` | returns true when a group's anchor is detected |
-| **pos** | `vector` | position of the center point of the group's ancor |
-| --- | --- | --- |
-| --- | --- | --- |
-
+| **name** | `string` | name given to the input in the config |
+| **type** | `string` | type of input can be *BUTTON, TOGGLE, SLIDER, or KNOB* |
+| **val** | `number` | current value of the input based on the calculation method for each type |
+| **actor** | `Marker` | marker tied to this input |
