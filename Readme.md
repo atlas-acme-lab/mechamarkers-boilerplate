@@ -16,7 +16,7 @@ This project includes all of the code you will need to get started running a Mec
 To just make a simple app all of the code you will need to edit is in the index.html file. You will probably only need to edit the callback for `window.onload` for initialization, and the body of the `update` loop for your main loop.
 
 ## Using the Library
-When using this bootstrap, the library is exposed under the hood already. The library must be initialized and manually updated which the starter code already does for you. Here are the important functions to know.
+When using this bootstrap, the library is exposed under the hood already. The library must be initialized and manually updated which the starter code already does for you. Here are the important functions to know. The library is exposed as a member of the `window` object as `window.Mechamarkers`.
 
 ### Simple 2D Vectors
 Many objects in this library have 2D vector objects associated with them, they are a simple x and y value and look like this `{ x: value, y : value }` and are what we are referring to when we say something is a vector type.
@@ -27,7 +27,7 @@ Many objects in this library have 2D vector objects associated with them, they a
 | Property | Type | Description |
 | --- | --- | --- |
 | **id** | `number` | integer id of the marker |
-| **preset** | `boolean` | is true when the marker is currently visible by the camera |
+| **present** | `boolean` | is true when the marker is currently visible by the camera |
 | **center** | `vector` | the center point of the marker in camera space |
 | **corner** | `vector` | the top left corner of the marker in camera space, used to calculate orientation |
 | **allCorners** | `vector` | the positions of all marker corners in camera space |

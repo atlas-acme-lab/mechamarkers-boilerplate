@@ -32,25 +32,46 @@
   <body>
     <canvas class="canvas"></canvas>
     <script>
-      // Get canvas references for drawing
-      const canvas = document.querySelector('canvas');
-      const ctx = canvas.getContext('2d');
+      // Make included libraries local
+      const Mechamarkers = window.Mechamarkers;
+      const Vec2 = window.Vec2;
+
+      let prevTime, canvas, ctx;
       
       // This function is called every animation frame (roughly 60 times a second)
       function update() {
+        // Keep track of time between updates as dt (delta time)
+        const currTime = Date.now();
+        const dt = (currTime - prevTime) / 1000;
+        prevTime = currTime;
+
         // Update the mechamarkers library
-        Mechamarkers.update(Date.now());
+        Mechamarkers.update(currTime);
         
-        
+
+        draw();
         // Keep this at the end. It triggers the loop to continue
         window.requestAnimationFrame(update);
+      }
+
+      // Keep our draw code separate from our update
+      function draw() {
+        ctx.clearRect(-1, -1, canvas.width + 1, canvas.height + 1);
       }
       
       // Onload is called when the window loads
       window.onload = () => {
+        prevTime = Date.now();
+        // Get canvas references for drawing
+        canvas = document.querySelector('canvas');
+        ctx = canvas.getContext('2d');
         // This line initializes mechamarkers library
         Mechamarkers.init(canvas, ctx);
-        
+
+        // Full screne te canvas
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
         // Begin the update loop
         update();
       }
