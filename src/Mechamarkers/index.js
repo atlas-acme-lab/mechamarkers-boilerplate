@@ -1,4 +1,3 @@
-import io from 'socket.io-client';
 import { initMarkers } from './Markers';
 import { pointInRect } from './Utils/CollisionDetection';
 import { avgCorners } from './Utils/General';
@@ -75,19 +74,13 @@ export function update(timenow) {
 }
 
 export function fetchInputConfig() {
-  socket.emit('get inputs config')
+  socket.send(JSON.stringify({ type: 'get input config' }));
 }
 
 export function init(canvas, ctx) {
   markerData = initMarkers(ctx);
 
-  socket = io.connect('localhost:5000');
-  socket.on('connect', () => socket.emit('get inputs config'));
-  socket.on('send inputs config', ({ config }) => parseInputs(JSON.parse(config)));
-
-  socket.on('update markers', (data) => {
-    const markers = data.markers;
-
+  const updateMarkers = (markers) => {
     if (markers.length > 0) {
       const mappedMarkers = markers.map(m => {
         // include naive conversion here in library
@@ -110,6 +103,25 @@ export function init(canvas, ctx) {
           markerData[m.id].update(m, timenow);
         }
       });
+    }
+  }
+
+  socket = new WebSocket('ws://localhost:5000');
+  socket.addEventListener('message', (event) => {
+    const data = JSON.parse(event.data);
+    switch (data.type) {
+      case 'markers':
+        updateMarkers(data.markers.markers);
+        break;
+      // This is sent once when connection is formed
+      case 'connected':
+        Mechamarkers.fetchInputConfig();
+        break;
+      case 'input config':
+        parseInputs(JSON.parse(data.config));
+        break;
+      default:
+        break;
     }
   });
 }

@@ -47,7 +47,13 @@
 
         // Update the mechamarkers library
         Mechamarkers.update(currTime);
-        
+
+        // If the group doesn't exist in the config or the config is not loaded
+        // undefined will be returned, you can work around this with a simple if
+        if (Mechamarkers.getGroup('panel_1')) {
+          // Let's see the position of that panel_1
+          // console.log(Mechamarkers.getGroup('panel_1').pos)
+        }
 
         draw();
         // Keep this at the end. It triggers the loop to continue
