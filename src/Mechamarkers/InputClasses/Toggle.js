@@ -26,26 +26,6 @@ class Toggle {
     const v = this.actor.present ? 1 : 0;
     this.val = calEMA(v, this.val, 0.5);
   }
-
-  display(parent, ctx, pxpermm, w) {
-    if(!this.actor) return;
-    const screenpos = vecRot(vecScale(xaxis, this.relativePosition.distance*pxpermm), this.relativePosition.angle - parent.cornerAngleInput);
-
-    ctx.save();
-
-    ctx.translate(parent.pos.x, parent.pos.y);
-    ctx.rotate(parent.angle);
-    ctx.translate(screenpos.x, screenpos.y);
-
-    ctx.strokeRect(-w/2, -w/2, w, w);
-    
-    if (this.val > 0.5) {
-      ctx.fillStyle = 'rgba(255, 255, 255, 1.0)';
-      ctx.fillRect(-w/2+3, -w/2+3, w-6, w-6);
-    }
-    
-    ctx.restore();
-  }
 }
 
 export default Toggle;
