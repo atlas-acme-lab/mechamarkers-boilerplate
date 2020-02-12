@@ -16,27 +16,17 @@
         overflow: hidden;
         background: rgb(66, 66, 66);
       }
-
-      .canvas {
-        z-index: 2;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-      }
     </style>
     <script src="./build/app.js"></script>
   </head>
 
   <body>
-    <canvas class="canvas"></canvas>
     <script>
       // Make included libraries local
       const Mechamarkers = window.Mechamarkers;
       const Vec2 = window.Vec2;
 
-      let prevTime, canvas, ctx;
+      let prevTime;
       
       // This function is called every animation frame (roughly 60 times a second)
       function update() {
@@ -55,28 +45,17 @@
           // console.log(Mechamarkers.getGroup('panel_1').pos)
         }
 
-        draw();
+        // If you wanted to use a canvas to draw stuff, I would put that code here
+
         // Keep this at the end. It triggers the loop to continue
         window.requestAnimationFrame(update);
-      }
-
-      // Keep our draw code separate from our update
-      function draw() {
-        ctx.clearRect(-1, -1, canvas.width + 1, canvas.height + 1);
       }
       
       // Onload is called when the window loads
       window.onload = () => {
         prevTime = Date.now();
-        // Get canvas references for drawing
-        canvas = document.querySelector('canvas');
-        ctx = canvas.getContext('2d');
         // This line initializes mechamarkers library
-        Mechamarkers.init(canvas, ctx);
-
-        // Full screne te canvas
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        Mechamarkers.init();
 
         // Begin the update loop
         update();

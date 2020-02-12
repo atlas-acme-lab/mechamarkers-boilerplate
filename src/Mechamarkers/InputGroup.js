@@ -119,47 +119,6 @@ class InputGroup {
       });
     }
   }
-
-  display(ctx) {
-    if (!this.anchor) return;
-    if (this.anchor.present) {
-      const edgelen = this.anchor.allCorners.map((v, i, arr) => vecMag(vecSub(v, arr[(i + 1) % arr.length])));
-      const peri = edgelen.reduce((acc, v) => (acc + v));
-      const pxpermm = peri / (this.markerSize*4);
-      this.calBoundingBox(50, pxpermm);
-
-      calDistortionMatrices(
-        this.anchor.allCorners[0], this.anchor.allCorners[1], this.anchor.allCorners[2], this.anchor.allCorners[3],
-        this.markerCorners[0], this.markerCorners[1], this.markerCorners[2], this.markerCorners[3]
-      );
-
-      ctx.strokeStyle = 'rgba(255, 255, 255, 1.0)';
-
-      ctx.save();
-      ctx.translate(this.pos.x, this.pos.y);
-      ctx.rotate(this.angle);
-
-      ctx.strokeRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.w, this.boundingBox.h);
-      ctx.fillStyle = "rgba(100, 100, 100, 0.7)";
-      ctx.fillRect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.w, this.boundingBox.h);
-
-      ctx.fillStyle = 'white';
-      ctx.font = '12px sans-serif';
-      ctx.textBaseline = 'top';
-      ctx.fillText(' '+this.name, this.boundingBox.x, this.boundingBox.y);
-      
-      ctx.font = '20px sans-serif';
-      ctx.textBaseline = 'center';
-      ctx.textAlign = 'center';
-      ctx.fillText('\u2693', 0, 0);
-
-      ctx.restore();
-      this.inputs.forEach((i) => {
-        // If an input is generic, this will be undefined since there is no class
-        if (i) i.display(this, ctx, pxpermm, 20*pxpermm);
-      });
-    }
-  }
 }
 
 export default InputGroup;

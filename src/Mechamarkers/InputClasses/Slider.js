@@ -56,51 +56,6 @@ class Slider {
         this.val = calEMA(v, this.val, 0.3);
     }
   }
-  
-  display(parent, ctx, pxpermm, w) {
-    if(!this.actor) return;
-    const screenpos = vecRot(vecScale(xaxis, this.relativePosition.distance*pxpermm), this.relativePosition.angle - parent.cornerAngleInput);
-
-    ctx.save();
-
-    ctx.translate(parent.pos.x, parent.pos.y);
-    ctx.rotate(parent.angle);
-    ctx.translate(screenpos.x, screenpos.y);
-
-    const dir = vecUnit(this.track);
-    const te = vecScale(dir, w*3);
-    const se = vecScale(dir, this.val * w*3);
-
-    ctx.lineWidth = w;
-
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(te.x, te.y);
-    ctx.stroke();
-
-    ctx.strokeStyle = 'rgba(255, 255, 255, 1.0)';
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(se.x, se.y);
-    ctx.stroke();
-
-    ctx.fillStyle = 'rgba(255, 0, 0, 1.0)';
-    ctx.beginPath();
-    ctx.ellipse(0, 0, 5, 5, 0, 0, Math.PI*2, false);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(this.pos.x, this.pos.y, 5, 5, 0, 0, Math.PI*2, false);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(this.spos.x, this.spos.y, 5, 5, 0, 0, Math.PI*2, false);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(this.epos.x, this.epos.y, 5, 5, 0, 0, Math.PI*2, false);
-    ctx.fill();
-
-    ctx.restore();
-  }
 }
 
 export default Slider;

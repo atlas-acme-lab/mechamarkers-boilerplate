@@ -7,8 +7,6 @@ const CORNER_SMOOTH_THRESHOLD = 3;
 const SMOOTH_HEAVY = 0.2; // 0-1, lower the value to get more smoothing
 const SMOOTH_LIGHT = 0.75;
 
-let ctx; // lazy fix
-
 class Marker {
     constructor(id) {
       this.id = id;
@@ -56,37 +54,9 @@ class Marker {
     checkPresence(timenow) {
         this.present = (timenow - this.timestamp) > this.timeout ? false : true;
     }
-
-    display(size) {
-        if (this.present) {
-            // ctx is global
-            ctx.beginPath();
-            ctx.moveTo(Math.round(this.allCorners[0].x), Math.round(this.allCorners[0].y));
-            ctx.lineTo(Math.round(this.allCorners[1].x), Math.round(this.allCorners[1].y));
-            ctx.lineTo(Math.round(this.allCorners[2].x), Math.round(this.allCorners[2].y));
-            ctx.lineTo(Math.round(this.allCorners[3].x), Math.round(this.allCorners[3].y));
-            ctx.lineTo(Math.round(this.allCorners[0].x), Math.round(this.allCorners[0].y));
-
-            ctx.fillStyle = '#ffffff';
-            if (this.inuse) ctx.fillStyle = '#ff0000';
-
-            if (this.shouldFill) ctx.fill();
-
-            ctx.fillStyle = '#0000aa';
-            ctx.strokeStyle = '#ffffff';
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.ellipse(Math.round(this.allCorners[0].x), Math.round(this.allCorners[0].y), 2, 2, 0, 0, Math.PI*2, false);
-            ctx.fill();
-
-            // const textPos = vecAdd(posCen, vecScale(vecCenCor0, size/2*1.5));
-            // ctx.fillText(this.id, textPos.x, textPos.y);
-        }
-    }
 }
 
-export function initMarkers(drawContext) {
-    ctx = drawContext;
+export function initMarkers() {
     const markerData = [];
     for (let i=0; i<MARKER_COUNT; i++) {
         markerData.push(new Marker(i));

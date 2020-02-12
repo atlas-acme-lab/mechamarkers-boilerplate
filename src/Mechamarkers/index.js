@@ -77,8 +77,8 @@ export function fetchInputConfig() {
   socket.send(JSON.stringify({ type: 'get input config' }));
 }
 
-export function init(canvas, ctx) {
-  markerData = initMarkers(ctx);
+export function init() {
+  markerData = initMarkers();
 
   const updateMarkers = (markers) => {
     if (markers.length > 0) {
