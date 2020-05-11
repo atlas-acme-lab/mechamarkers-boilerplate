@@ -23,6 +23,10 @@ export function vecMag2(vec) {
   return Math.pow(vec.x, 2) + Math.pow(vec.y, 2);
 }
 
+function vecDist(vec1, vec2) {
+  return vecMag(vecSub(vec1, vec2));
+}
+
 export function vecUnit(vec) {
   var m = vecMag(vec);
   return {
