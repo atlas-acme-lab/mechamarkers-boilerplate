@@ -30,7 +30,9 @@ Many objects in this library have 2D vector objects associated with them, they a
 | **present** | `boolean` | is true when the marker is currently visible by the camera |
 | **center** | `vector` | the center point of the marker in camera space |
 | **corner** | `vector` | the top left corner of the marker in camera space, used to calculate orientation |
-| **allCorners** | `vector` | the positions of all marker corners in camera space |
+| **allCorners** | `vector []` | the positions of all marker corners in camera space |
+| **edgeLengths** | `number []` | the lengths of all of the edges of the marker, based on **allCorners** values |
+| **averageEdgeLength** | `number` | average length of edges, can be used to estimate relative marker size |
 
 ### Input Groups
 `Mechamarkers.getGroup(groupName)` will return an input group object that has the following properties.These will only appear if you have created and saved a group config with the **Input Generator** in the desktop app. You may only have one config saved at a time. Input groups have the following properties and methods.
