@@ -23,6 +23,8 @@ class Marker {
       this.type = ''; // ANCHOR or ACTOR
       this.groupID = -1; // -1 is unset
       this.inputID = -1; // Only set for actor type marker
+      this.edgeLengths = [0, 0, 0, 0];
+      this.averageEdgeLength = 0;
     }
 
     update(marker, timenow) {
@@ -49,6 +51,19 @@ class Marker {
             this.corner = marker.corner;
             this.allCorners = marker.allCorners;
         }
+        
+      // Update edges
+      let edgeTotal = 0;
+      this.allCorners.forEach((c, i) => {
+        let l = 0;
+
+        if (i < this.allCorners.length - 1) l = vecDist(c, this.allCorners[i + 1]);
+        else l = vecDist(c, this.allCorners[0]); // last edge goes from 3 -> 0
+
+        this.edgeLengths[i] = l;
+        edgeTotal += l;
+      });
+      this.averageEdgeLength = edgeTotal / 4;
     }
 
     checkPresence(timenow) {
